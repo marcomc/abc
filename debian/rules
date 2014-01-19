@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 # Generated automatically from debian/packages
-# by yada v0.25, of Thu,  6 Nov 2003
+# by yada v0.30, of Fri,  6 Aug 2004
 
 DEB_HOST_ARCH        := $(shell dpkg-architecture -qDEB_HOST_ARCH)
 DEB_HOST_GNU_CPU     := $(shell dpkg-architecture -qDEB_HOST_GNU_CPU)
@@ -34,30 +34,30 @@ default:
 
 .PHONY: build-only build
 build-only: debian/build-stamp
-build: chmod-yada build-only
+build: build-only
 
 .PHONY: build-arch-only build-arch
 build-arch-only: debian/build-arch-stamp
-build-arch: chmod-yada build-arch-only
+build-arch: build-arch-only
 
 .PHONY: build-indep-only build-indep
 build-indep-only: debian/build-indep-stamp
-build-indep: chmod-yada build-indep-only
+build-indep: build-indep-only
 
 # Make sure these rules and the control file are up-to-date
 
 .PHONY: rules control templates
 rules: debian/rules
 debian/rules: $(shell which yada) debian/packages-tmp
-	$(shell which yada) rebuild rules
+	yada rebuild rules
 
 control: debian/control
 debian/control: $(shell which yada) debian/packages-tmp
-	$(shell which yada) rebuild control
+	yada rebuild control
 
 templates: debian/templates
 debian/templates: $(shell which yada) debian/packages-tmp
-	$(shell which yada) rebuild templates
+	yada rebuild templates
 
 debian/build-stamp: debian/build-arch-stamp debian/build-indep-stamp
 	@[ -f $(shell which yada) -a -f debian/rules ]
@@ -72,7 +72,7 @@ debian/build-indep-stamp:
 	touch debian/build-indep-stamp
 
 .PHONY: install-tree
-install-tree: chmod-yada install-tree-any
+install-tree: install-tree-any
 install-tree-any: \
 	debian/tmp-abc/DEBIAN/control
 
@@ -80,7 +80,7 @@ debian/tmp-abc/DEBIAN/control: debian/build-indep-stamp debian/control
 	rm -rf debian/tmp-abc
 	umask 022 && install -d debian/tmp-abc/DEBIAN
 	install -d debian/tmp-abc/usr/share/doc/abc
-	umask 022; $(shell which yada) generate copyright \
+	umask 022; yada generate copyright \
 	  > debian/tmp-abc/usr/share/doc/abc/copyright
 	install -m 644 -p debian/changelog \
 	  debian/tmp-abc/usr/share/doc/abc/changelog
@@ -118,25 +118,25 @@ debian/tmp-abc/DEBIAN/control: debian/build-indep-stamp debian/control
 	echo -E 'yada python';\
 	echo -E 'yada strip';\
 	echo -E 'yada shlibdeps') | /bin/sh
-	$(shell which yada) compress abc
-	$(shell which yada) generate maintscripts abc
+	yada compress abc
+	yada generate maintscripts abc
 	find debian/tmp-abc -type f -print \
 	  | sed -n 's/^debian\/tmp-abc\(\/etc\/.*\)$$/\1/p' \
 	  > debian/tmp-abc/DEBIAN/conffiles
 	if test ! -s debian/tmp-abc/DEBIAN/conffiles; then rm -f debian/tmp-abc/DEBIAN/conffiles; fi
-	$(shell which yada) rebuild control
-	$(shell which yada) generate substvars abc
+	yada rebuild control
+	yada generate substvars abc
 	umask 022 && dpkg-gencontrol -isp -pabc -Pdebian/tmp-abc
 
 # Build package files
 
 .PHONY: binary binary-arch binary-indep
 binary: binary-arch binary-indep
-binary-arch: chmod-yada binary-arch-any
+binary-arch: binary-arch-any
 
 .PHONY: binary-arch-any
 binary-arch-any:
-binary-indep: chmod-yada \
+binary-indep: \
 	binary-package-abc
 
 .PHONY: binary-package-abc
@@ -153,29 +153,23 @@ binary-package-abc: check-root debian/tmp-abc/DEBIAN/control
 check-root:
 	@[ `id -u` = 0 ] || (echo "You must be root to do this!"; false)
 
-.PHONY: chmod-yada
-chmod-yada:
-	@if [ -f debian/yada -a ! -x debian/yada ]; then \
-	  chmod +x debian/yada; \
-	fi
-
 debian/packages-tmp: debian/packages 
-	$(shell which yada) rebuild packages
+	yada rebuild packages
 
 ## Clean up afterwards
 
 .PHONY: clean clean-install-tree clean-build
 
-clean: chmod-yada clean-install-tree clean-build debian/control debian/rules
+clean: clean-install-tree clean-build debian/control debian/rules
 	rm -f debian/packages-tmp debian/packages-tmp-new debian/packages-tmp-include
 
 clean-build:
 	@[ -f $(shell which yada) -a -f debian/rules ]
 	rm -f debian/build-stamp debian/build-arch-stamp debian/build-indep-stamp
-	$(shell which yada) unpatch
+	yada unpatch
 	rm -rf debian/tmp
 
-clean-install-tree: chmod-yada debian/rules
+clean-install-tree: debian/rules
 	@[ -f $(shell which yada) -a -f debian/rules ]
 	rm -f debian/install-tree-stamp
 	rm -rf debian/tmp-* debian/files* debian/substvars debian/shlibs.local debian/ucf

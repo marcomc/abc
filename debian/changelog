@@ -1,7 +1,17 @@
+abc (0.7pre1-1) unstable; urgency=low
+  
+  * corrected bug in battery_level_control; now it really shuts down after
+    countdown
+  * corrected changelog information
+  * modified doc and man source directory
+  
+ -- Marco Massari Calderone <MassariC@CS.UniBO.IT>  Fri, 14 Nov 2003 11:41:18 +0100
+ 
+
 abc (0.6-1) unstable; urgency=low
   
   * corrected changelog information
-  * modified doc e man source directory
+  * modified doc and man source directory
   
  -- Marco Massari Calderone <MassariC@CS.UniBO.IT>  Fri, 14 Nov 2003 11:41:18 +0100
  

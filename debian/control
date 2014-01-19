@@ -4,7 +4,7 @@ Section: admin
 Priority: extra
 Standards-Version: 3.5.9
 Build-Depends: yada
-Build-Depends-Indep: yada (>= 0.25)
+Build-Depends-Indep: yada (>= 0.30)
 Origin: debian
 
 Package: abc

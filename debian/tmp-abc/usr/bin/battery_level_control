@@ -64,7 +64,7 @@ if  $BATTERY_PRESENT && ! $AC_PRESENT; then
                         echo "system halting, bye bye" | flite;
                         echo -e "\n-- $(date) --" >> $LOG;
                         echo -e "System halted by abc control" >> $LOG;
-                        halt;
+                        /sbin/shutdown -h now;
                         exit;
                         ;; 
                         

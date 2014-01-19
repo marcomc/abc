@@ -3,10 +3,10 @@ d2ce1c2d2652e59741c1149d4b393861  usr/share/doc/abc/GPL.gz
 8b3d30d41152d12aaf17135cbcbc957e  usr/share/doc/abc/BUGS
 f023136730d455f118421c473c2f525a  usr/share/doc/abc/TODO
 cc5a001165ec43242143173644efeea5  usr/share/doc/abc/TODO.Debian
-eefd4c71f5cf06eadb938dee46afc465  usr/share/doc/abc/changelog.gz
+bb5a92438fa09df9b88388e4e1d135dc  usr/share/doc/abc/changelog.gz
 ea7421fd2708b721b5340b3e8330576d  usr/share/man/man1/battery_monitor.1.gz
 4a4ed5472b6ce913beac4f819f51dadb  usr/share/man/man1/abc.1.gz
 d4516f9ff6845727786b243edd23c54b  usr/share/man/man1/battery_level_control.1.gz
 f1abcd0c609ffcc94cc7b7c2beaac42d  usr/bin/battery_monitor
-f1563292360999642e81d6d6698603fb  usr/bin/battery_level_control
+2b8de28ffb7a0e942b362da7820e7c32  usr/bin/battery_level_control
 0efac5883f7bec0af51d027ba218beda  etc/cron.d/abc
