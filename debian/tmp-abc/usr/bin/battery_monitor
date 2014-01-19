@@ -1,0 +1,37 @@
+#!/bin/sh
+# battery_monitor is a script of ABC "ABC Battery Controller" collection
+# Copyright 2003 Marco Massari Calderone <M.Calderone@CS.UniBO.IT>
+#
+# --------------------------------------------------------------------------
+# - This script is free software; you can redistribute it and/or modify it -
+# - under the terms of the GNU General Public License as published by the  -
+# - Free Software Foundation; either version 2, or (at your option) any    -
+# - later version.                                                         -
+# -                                                                        -
+# - This script is distributed in the hope that it will be useful, but     -
+# - WITHOUT ANY WARRANTY; without even the implied warranty of             -
+# - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU      -
+# - General Public License for more details.                               -
+# --------------------------------------------------------------------------
+#
+ 
+FLITE=$(which flite)
+TR=$(which tr)
+BATTERY=$(which on_battery_power)
+LOCK=/tmp/battery_monitor.lock
+ABC=$(which battery_level_control)
+case $1 in
+        "-h" | "-v" )
+        $ABC $1;
+        exit;
+        ;;
+esac
+if [ -e $LOCK ]; then
+        exit;
+fi
+if [ -e "$FLITE" ] && [ -e "$TR" ] && $BATTERY ; then #checks the presence of indispensable software
+        lockfile $LOCK;
+        $ABC;
+        rm -f $LOCK;
+fi
+

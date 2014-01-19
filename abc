@@ -1,0 +1,2 @@
+
+* * * * *   root    if [ -x /usr/bin/battery_monitor ]; then  /usr/bin/battery_monitor; fi

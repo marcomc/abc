@@ -1,0 +1,76 @@
+abc (0.6-1) unstable; urgency=low
+  
+  * corrected changelog information
+  * modified doc e man source directory
+  
+ -- Marco Massari Calderone <MassariC@CS.UniBO.IT>  Fri, 14 Nov 2003 11:41:18 +0100
+ 
+abc (0.6pre3-1) unstable; urgency=low
+  
+  * modified (added) advises
+  * added vocal thanks after plugging of powersupply after critical level
+    advisory and during COUNTDOWN
+  
+ -- Marco Massari Calderone <MassariC@CS.UniBO.IT>  Fri, 14 Nov 2003 11:35:26 +0100
+ 
+abc (0.6pre2-1) unstable; urgency=low
+  
+  * added vocal thanks after unplugging of powersupply if battery is fully
+    charged
+  
+ -- Marco Massari Calderone <MassariC@CS.UniBO.IT>  Fri,  07 Nov 2003 20:34:33 +0100
+ 
+abc (0.6pre1-1) unstable; urgency=low
+  
+  * added control for full charge of battary
+ 
+ -- Marco Massari Calderone <MassariC@CS.UniBO.IT>  Fri,  07 Nov 2003 2:17:04 +0100
+ 
+abc (0.5-1) unstable; urgency=low
+
+  * license information inside scripts
+  * added cba, which, powermgmt-base, cron in Depends
+  * deleted acpid from Depends 
+  * modified scripts: now they use cba and powermgmt-base scripts for
+    recongization of batteries and thir status 
+  * corrected usage and help information
+
+ -- Marco Massari Calderone <MassariC@CS.UniBO.IT>  Sat,  18 Oct 2003 13:57:56 +0100
+ 
+abc (0.4-1) unstable; urgency=low
+ 
+  * moved scripts in /usr/bin from /usr/sbin (cron was unable to launch them)
+  * added support for usage printing
+  * inserted englidh language comments in scripts
+  * adjusted very little bug in battery_monitor script (added ; at the end of
+    a line
+  * added TODO and TODO.Debian files
+ 
+ -- Marco Massari Calderone <MassariC@CS.UniBO.IT>  Fri,  10 Oct 2003 23:59:10 +0100
+ 
+abc (0.3-1) unstable; urgency=low
+  
+  * generalized battery_monitor scrip
+  * modified abc crontab file
+  * added logging for shutdown operation in battery_level_control
+  
+ -- Marco Massari Calderone <MassariC@CS.UniBO.IT>  Fri,  10 Oct 2003 00:45:54 +0100
+ 
+abc (0.2-1) unstable; urgency=low
+  
+  -Battery_level_control script
+  * Adjusted bug in evaluating parameters to battery_level_control.
+  * Added control on nature of the parameter
+  * count down NOW work only with number :-)
+ 
+  -abc (cron extension)
+  * added control on existence of battery_monitor sript
+
+ -- Marco Massari Calderone <MassariC@CS.UniBO.IT>  Wed,  2 Oct 2003 02:03:28 +0100
+
+abc (0.1-1) unstable; urgency=low
+ 
+  * Initial Debian version.
+
+ -- Marco Massari Calderone <MassariC@CS.UniBO.IT>  Wed,  1 Oct 2003 22:12:07 +0100
+

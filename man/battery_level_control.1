@@ -1,0 +1,44 @@
+.\"						Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH abc "30 Sept, 2003" abc "GNU abc Manual"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+GNU battery_level_control
+.SH SYNOPSIS
+.B battery_level_control [options]
+.SH DESCRIPTION
+This manual page documents briefly the
+.BR battery_level_control
+command. 
+.PP
+.B battery_level_control
+is the main script of abc package, it is called from battery_monitor
+but can also be axecuted in autonomy, it speach the currret battery status.
+.RS
+.SH OPTIONS
+.TP
+.B \-v
+Show  version information for this instance of bash on the standard output and exit successfully.
+.SH REPORTING BUGS
+Report bugs to <MassariC@CS.UniBO.IT@>
+.SH SEE ALSO
+.BR abc (1),
+.BR battery_monitor (1),
+.BR flite (8),
+.BR acpid (8),
+.SH AUTHOR
+This manual page was written by Marco Massari Calderone <MassariC@CS.UniBO.IT>,
+for the Debian GNU/Linux system (but may be used by others).

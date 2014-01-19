@@ -1,0 +1,2 @@
+
+when runned from cron daemond it doesn't shutdown the system (if runned from shell it does!).

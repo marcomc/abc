@@ -1,0 +1,123 @@
+#!/bin/sh
+#
+# battery_level_controller is a script of ABC "ABC Battery Controller" collection
+# Copyright 2003 Marco Massari Calderone <M.Calderone@CS.UniBO.IT>
+#
+# --------------------------------------------------------------------------
+# - This script is free software; you can redistribute it and/or modify it -
+# - under the terms of the GNU General Public License as published by the  -
+# - Free Software Foundation; either version 2, or (at your option) any    -
+# - later version.                                                         -
+# -                                                                        -
+# - This script is distributed in the hope that it will be useful, but     -
+# - WITHOUT ANY WARRANTY; without even the implied warranty of             -
+# - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU      -
+# - General Public License for more details.                               -
+# --------------------------------------------------------------------------
+#
+
+
+VERSION="0.6"
+AUTOR="Marco Massari Calderone <MassariC@CS.UniBO.IT>"
+INFOS="abc $VERSION\t\"ABC Battery Controller\"\nCopyrigt (C) 2003 to $AUTOR"
+USAGE="$INFOS\n
+\nusage: battery_level_control [-v|-h]\n\n
+\t                -h print this.\n
+\t                -v print version information.\n
+\n$AUTOR\n"
+FULL=100 #percentage valu
+LOW=8 #percentage value
+CRITICAL=5 #percentage value
+DANGEROUS=3 #percentage value
+TIMEOUT=10 #in seconds
+BATTERY_PRESENT=$(which on_battery_power)
+AC_PRESENT=$(which on_ac_power)
+REMAINING=$($(which battery_status)) 
+CLEAN=$(echo $1 | tr -d [:alpha:][:space:][:punct:]) #cleans input parameter from spaces letters and signs. It mantain only digits
+ABC=$(which battery_level_control)
+LOG=/var/log/abc.log
+
+case $1 in 
+        "-v" )
+        echo -e "$INFOS\n";
+        exit;
+        ;;
+        "-h")
+        echo -e  $USAGE;
+        ;;
+esac
+
+if  $BATTERY_PRESENT && ! $AC_PRESENT; then 
+       if [ $REMAINING -le $LOW ]; then
+                STATUS="low";
+       fi
+       if [ $REMAINING -le $CRITICAL ]; then     
+                STATUS="critical";
+       fi
+       if [ $REMAINING -le $DANGEROUS ]; then     
+                STATUS="dangerous";        
+       fi
+       if [ $# -gt 0 ]; then #it checks how many parameter are passed to the script
+                case $1 in
+                        
+                        "0" )
+                        echo "system halting, bye bye" | flite;
+                        echo -e "\n-- $(date) --" >> $LOG;
+                        echo -e "System halted by abc control" >> $LOG;
+                        halt;
+                        exit;
+                        ;; 
+                        
+                        "$CLEAN" ) #if parameter in input wasn't a 'clean' number it is ignored
+                        echo "$CLEAN" | flite; #speach the countdown value 
+                        sleep 1;
+                        if $AC_PRESENT; then
+                                echo "Nice to meet you Flash!" | flite;
+                                exit;
+                        fi
+                        $ABC $(($1 - 1));#continue the countdown; 
+                        exit;
+                        ;;
+                esac
+       fi
+       
+       case  $STATUS in #verify the battery status and speech it
+                "low" ) 
+                #echo "$STATUS battery level" | flite;
+                echo "Your battery is running $STATUS. You should consider plugging in or shutting down your computer soon to avoid possible data loss." | flite;
+                exit;
+                ;;
+                "critical" )
+                #echo "$STATUS battery level, shutdown the system or plug the power supply" | flite;
+                echo "Your battery has reached $STATUS status. You should plug in or shutdown your computer now to avoid possible data loss " | flite;
+                ROUNDS=10 # NOT seconds
+                while [ $ROUNDS -gt 0 ]; do
+                        ROUNDS=$(($ROUNDS - 1));
+                        sleep 0,5;
+                        if $AC_PRESENT; then
+                                echo "thanks a lot" | flite;
+                                exit;
+                        fi
+                done
+                $ABC;                
+                ;;
+                "dangerous" )
+                echo "Your battery has reached $STATUS status. system is halting in $TIMEOUT seconds" | flite;
+                $ABC $TIMEOUT;
+       esac
+       
+elif $BATTERY_PRESENT && $AC_PRESENT; then
+       if [ $REMAINING -ge $FULL ]; then
+                echo "battery is fully charged, please unplug the power supply" | flite;
+                ROUNDS=60 # NOT seconds
+                while [ $ROUNDS -gt 0 ]; do
+                        ROUNDS=$(($ROUNDS - 1))
+                        sleep 0,5;
+                        if ! $AC_PRESENT; then
+                                echo "thanks a lot" | flite;
+                                exit;        
+                        fi
+                done
+       fi
+
+fi

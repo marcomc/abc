@@ -1,0 +1,12 @@
+Package: abc
+Version: 0.6-1
+Section: admin
+Priority: extra
+Architecture: all
+Depends: flite, powermgmt-base, cron, cba, which
+Installed-Size: 108
+Origin: debian
+Maintainer: Marco Massari Calderone <MassariC@CS.UniBO.IT>
+Description: Battery information and Audio Allarm
+ This Script provide a Configurable
+ Speaking Allarm for Battery Level Monitoring.
